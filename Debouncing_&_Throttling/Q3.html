@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="last">Last</button>
+    <button id="next">Next</button>
+    <img src="" alt="" id="img" width="600px" height="400px">
+    <p id="slidenum">Slide1</p>
+</body>
+</html>
+
+<script>
+
+   let imgsrc=document.getElementById('img')
+   let  slidenum=document.getElementById('slidenum')
+   let last=document.getElementById('last')
+   let next=document.getElementById('next')
+
+    let slide=1
+    let lastone=0
+    let clicks=0
+
+    function loadimg(){
+         imgsrc.src=`https://picsum.photos/600/400?random=${slide}`
+         slidenum.innerText=`slide ${slide}`
+    }
+
+    function change(inc){
+        let time=Date.now()
+        if(time-lastone<1000){
+            clicks++
+
+            if(clicks>3){
+                return alert("Chill chill, loading it!!")
+            }
+            return
+        }
+        lastone=time
+        clicks=1
+
+        slide+=inc
+        if(slide<1)
+            slide=1
+            
+        loadimg()
+    }
+
+ last.onclick=()=>change(-1)
+ next.onclick=()=>change(1)
+loadimg()
+</script>
