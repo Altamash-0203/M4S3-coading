@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    h1{
+        text-align: center;
+    }
+
+#MovieName{
+    margin-left: 35%;
+    height: 20px;
+}
+
+#find{
+    height: 20px;
+    width: 60px;
+    background-color: rgb(63, 63, 255);
+    color: white;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+#find:hover{
+    background-color: rgb(124, 124, 216);
+}
+</style>
+<body>
+    <h1>Find Movie</h1>
+    <input type="text" name="" id="MovieName" placeholder="Enter Movie Name">
+
+    <div id="display">
+     <div>
+        <p>
+            <img src="" alt="">
+        </p>
+     </div>
+    </div>
+
+</body>
+</html>
+
+<script>
+let name=document.getElementById('MovieName')
+let display=document.getElementById('display')
+
+let timer;
+   
+    name.addEventListener('input',()=>{
+        clearTimeout(timer)
+        timer=setTimeout(()=>{
+            let query=name.value
+
+            if(query){
+                fetch(`https://www.omdbapi.com/?apikey=e2b2db74&s=${query}`)
+                .then(res=>res.json())
+                .then(data=>{
+                    if(data.Search){
+                     display.innerHTML=data.Search.map(movie=>`
+                       <div>
+                           <p>${movie.Title}</p>
+                           <img src="${movie.Poster}" alt=""> 
+                          <hr>
+                        </div>
+                       `)
+                    }
+                    else{
+                        display.innerHTML='<div>no movie found</div>'
+                    }
+                })
+            }
+        },500)
+    })
+</script>
