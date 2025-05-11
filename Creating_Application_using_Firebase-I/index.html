@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="list">
+
+    </div>
+
+    <button onclick="page(-1)">prev</button>
+    <button onclick="page(1)">next</button>
+</body>
+</html>
+
+<script>
+    let display=document.getElementById('list')
+    let pagenum=1
+    function fetchpage(){
+       fetch(`https://rickandmortyapi.com/api/character?page=${pagenum}`)
+       .then(res=>res.json())
+       .then(person=>{
+        display.innerHTML=person.results.map(x=> 
+            `<div>
+                <img src="${x.image}" width="100px"/>
+                <h2>${x.name}</h2>
+                <p>${x.species}</p>
+                <a href="detail.html?id=${x.id}">Detail</a>
+                </div>
+            `
+        );
+       })
+    }
+    function change(inc){
+        pagenum+=inc
+        if (pagenum<1)
+        pagenum=1
+        fetchpage()
+    }
+    fetchpage()
+</script>
