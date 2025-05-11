@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .form{
+            display:grid;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        #loginform{
+            text-decoration: none;
+            margin-top: 5px;
+            font-size: 10px;
+            text-align: right;
+            
+
+        }
+    </style>
+</head>
+<body>
+    <h2 style="font-family:monospace;background-color: burlywood;text-align: center;text-transform: uppercase; ">Hey Welcome !</h2>
+    <div class="form">
+     <input type="text" id="username" placeholder="Enter your good name"> <br>
+     <input type="email" id="mail" placeholder="Enter your email"><br>
+     <input type="password" name="" id="pass" placeholder="Enter your password"><br>
+     <button id="register" onclick="Register()">Register</button>
+     <a href="login.html" id="loginform">old user!i have account?</a>
+    </div>
+</body>
+</html>
+
+
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<script>
+ 
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyATj8Q5-R27NXIqGgn-wFhIlon1yKzM5sw",
+    authDomain: "first-project-7662e.firebaseapp.com",
+     databaseURL: "https://first-project-7662e-default-rtdb.firebaseio.com",
+    projectId: "first-project-7662e",
+    storageBucket: "first-project-7662e.firebasestorage.app",
+    messagingSenderId: "770942599849",
+    appId: "1:770942599849:web:a2839e4adce6387d9f5fb8",
+    measurementId: "G-DRN7MZF4RC"
+  };
+
+  // Initialize Firebase
+ firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
+
+
+// Register code 
+    function Register(){
+
+       
+        let name=document.getElementById('username').value
+        let email=document.getElementById('mail').value
+        let pass=document.getElementById('pass').value
+
+
+         if(name=="" || email==""|| pass==""){
+            return alert("enter all data")
+        }
+
+
+        let userdata=db.ref('users').push()
+        userdata.set({name,email,pass},()=>{
+            alert(`welcome ${name}`)
+            window.location.href="dashboard.html"
+        })
+    }
+</script>
+
+
+
+
+

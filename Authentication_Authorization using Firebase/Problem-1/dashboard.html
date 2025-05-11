@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .image{
+        width: 200px;
+        height: 200px;
+        text-align: center;
+       
+    }
+  
+</style>
+<body>
+    <h1>Dashboard</h1>
+    <div id="list">
+ 
+    </div>
+</body>
+</html>
+
+<script>
+     let list=document.getElementById('list')
+      fetch('https://fakestoreapi.com/products')
+                .then(res=>res.json())
+                .then(data=>{
+                  data.forEach(product=>{
+                    let div=document.createElement('div')
+                     div.className="productlist"
+                    div.innerHTML=`
+                    <img class="image" src="${product.image}" alt="">
+                    <p>${product.title}</p>
+                    <b>$-${product.price}</b>
+                    <hr>
+                    `
+                    list.appendChild(div)
+                  })
+                })
+
+
+</script>
